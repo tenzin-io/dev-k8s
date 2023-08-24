@@ -29,8 +29,6 @@ module "metallb" {
 }
 
 module "nginx_ingress" {
-  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-controller.git?ref=v0.0.2"
-  enable_tailscale_tunnel = true
-  tailscale_auth_key      = data.vault_generic_secret.tailscale.data.auth_key
-  depends_on              = [module.metallb]
+  source     = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-controller.git?ref=v0.0.2"
+  depends_on = [module.metallb]
 }
