@@ -32,3 +32,9 @@ module "nginx_ingress" {
   source     = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-controller.git?ref=v0.0.2"
   depends_on = [module.metallb]
 }
+
+module "nfs_subdir" {
+  source     = "git::https://github.com/tenzin-io/terraform-tenzin-nfs-subdir.git?ref=v0.0.2"
+  nfs_server = "zfs-1.tenzin.io"
+  nfs_path   = "/data/shared"
+}
