@@ -40,9 +40,11 @@ module "nfs_subdir" {
 }
 
 module "prometheus" {
-  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-prometheus.git?ref=v0.0.1"
+  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-prometheus.git?ref=main"
   alert_receiver_name     = "xmatters"
   alert_receiver_username = data.vault_generic_secret.xmatters.data.username
   alert_receiver_password = data.vault_generic_secret.xmatters.data.password
   alert_receiver_url      = data.vault_generic_secret.xmatters.data.trigger_url
+  kubernetes_cluster_name = "homelab-k8s-dev"
+  prometheus_volume_size  = "30Gi"
 }
