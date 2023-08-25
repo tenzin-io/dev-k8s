@@ -40,7 +40,7 @@ module "nfs_subdir" {
 }
 
 module "prometheus" {
-  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-prometheus.git?ref=main"
+  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-prometheus.git?ref=v0.0.1"
   alert_receiver_name     = "xmatters"
   alert_receiver_username = data.vault_generic_secret.xmatters.data.username
   alert_receiver_password = data.vault_generic_secret.xmatters.data.password
