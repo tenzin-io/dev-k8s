@@ -38,3 +38,7 @@ module "nfs_subdir" {
   nfs_server = "zfs-1.tenzin.io"
   nfs_path   = "/data/homelab-k8s-dev"
 }
+
+module "prometheus" {
+  source = "git::https://github.com/tenzin-io/terraform-tenzin-prometheus.git?ref=main"
+}
