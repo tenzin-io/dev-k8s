@@ -34,7 +34,7 @@ module "nginx_ingress" {
 }
 
 module "nfs_subdir" {
-  source     = "git::https://github.com/tenzin-io/terraform-tenzin-nfs-subdir.git?ref=v0.0.3"
+  source     = "git::https://github.com/tenzin-io/terraform-tenzin-nfs-subdir.git?ref=main"
   nfs_server = "zfs-1.tenzin.io"
   nfs_path   = "/data/homelab-k8s-dev"
 }
