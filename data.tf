@@ -13,3 +13,7 @@ data "vault_generic_secret" "xmatters" {
 data "vault_generic_secret" "grafana" {
   path = "secrets/grafana"
 }
+
+data "vault_generic_secret" "tailscale" {
+  path = "secrets/auth_key"
+}
