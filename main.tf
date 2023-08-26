@@ -48,3 +48,9 @@ module "prometheus" {
   kubernetes_cluster_name = "homelab-k8s-dev"
   prometheus_volume_size  = "30Gi"
 }
+
+module "grafana" {
+  source               = "git::https://github.com/tenzin-io/terraform-tenzin-grafana.git?ref=main"
+  grafana_ingress_host = "grafana.tenzin.io"
+  depends_on           = [module.cert_manager, module.prometheus]
+}
