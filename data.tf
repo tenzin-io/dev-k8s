@@ -15,5 +15,5 @@ data "vault_generic_secret" "grafana" {
 }
 
 data "vault_generic_secret" "tailscale" {
-  path = "secrets/auth_key"
+  path = "secrets/tailscale"
 }
