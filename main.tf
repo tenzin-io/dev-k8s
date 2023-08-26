@@ -50,7 +50,7 @@ module "prometheus" {
 }
 
 module "grafana" {
-  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-grafana.git?ref=main"
+  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-grafana.git?ref=v0.0.1"
   grafana_ingress_host       = "grafana.tenzin.io"
   certificate_issuer_name    = "lets-encrypt"
   github_org_name            = "tenzin-io"
