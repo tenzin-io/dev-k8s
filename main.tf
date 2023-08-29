@@ -21,6 +21,7 @@ module "github_actions" {
   github_app_private_key     = data.vault_generic_secret.github_app.data.private_key
   github_runner_labels       = ["homelab", "dev"]
   github_runner_image        = "containers.tenzin.io/docker/tenzin-io/actions-runner-images/ubuntu-latest:v0.0.7"
+  depends_on                 = [module.cert_manager]
 }
 
 module "metallb" {
@@ -32,7 +33,7 @@ module "nginx_ingress" {
   source                  = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-controller.git?ref=v0.0.2"
   enable_tailscale_tunnel = true
   tailscale_auth_key      = data.vault_generic_secret.tailscale.data.auth_key
-  depends_on              = [module.metallb]
+  depends_on              = [module.metallb, module.cert_manager]
 }
 
 module "nfs_subdir" {
