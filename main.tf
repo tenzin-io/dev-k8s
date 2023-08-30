@@ -14,7 +14,7 @@ module "cert_manager" {
 }
 
 module "github_actions" {
-  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-github-actions-runner-controller.git?ref=main"
+  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-github-actions-runner-controller.git?ref=v0.2.0"
   github_org_name            = "tenzin-io"
   github_app_id              = data.vault_generic_secret.github_app.data.app_id
   github_app_installation_id = data.vault_generic_secret.github_app.data.installation_id
@@ -59,5 +59,5 @@ module "grafana" {
   github_org_name            = "tenzin-io"
   github_oauth_client_id     = data.vault_generic_secret.grafana.data.github_oauth_client_id
   github_oauth_client_secret = data.vault_generic_secret.grafana.data.github_oauth_client_secret
-  depends_on                 = [module.cert_manager, module.prometheus]
+  depends_on                 = [module.nginx_ingress, module.cert_manager, module.prometheus]
 }
