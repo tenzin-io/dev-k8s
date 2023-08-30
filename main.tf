@@ -50,6 +50,8 @@ module "prometheus" {
   alert_receiver_url      = data.vault_generic_secret.xmatters.data.trigger_url
   kubernetes_cluster_name = "homelab-k8s-dev"
   prometheus_volume_size  = "30Gi"
+  certificate_issuer_name = "lets-encrypt"
+  thanos_ingress_host     = "thanos-homelab-k8s-dev.tenzin.io"
 }
 
 module "grafana" {
