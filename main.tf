@@ -43,7 +43,7 @@ module "nfs_subdir" {
 }
 
 module "prometheus" {
-  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-prometheus.git?ref=main"
+  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-prometheus.git?ref=v0.0.3"
   alert_receiver_name     = "xmatters"
   alert_receiver_username = data.vault_generic_secret.xmatters.data.username
   alert_receiver_password = data.vault_generic_secret.xmatters.data.password
@@ -55,7 +55,7 @@ module "prometheus" {
 }
 
 module "grafana" {
-  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-grafana.git?ref=main"
+  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-grafana.git?ref=v0.0.2"
   grafana_ingress_host       = "grafana.tenzin.io"
   certificate_issuer_name    = "lets-encrypt"
   github_org_name            = "tenzin-io"
