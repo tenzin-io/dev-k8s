@@ -59,8 +59,8 @@ module "grafana" {
   grafana_ingress_host       = "grafana-dev.tenzin.io"
   certificate_issuer_name    = "lets-encrypt"
   github_org_name            = "tenzin-io"
-  github_oauth_client_id     = data.vault_generic_secret.grafana.data.github_oauth_client_id
-  github_oauth_client_secret = data.vault_generic_secret.grafana.data.github_oauth_client_secret
+  github_oauth_client_id     = data.vault_generic_secret.grafana_dev.data.github_oauth_client_id
+  github_oauth_client_secret = data.vault_generic_secret.grafana_dev.data.github_oauth_client_secret
   thanos_store_endpoints     = ["thanos-homelab-k8s-dev.tenzin.io:443"]
   depends_on                 = [module.nginx_ingress, module.cert_manager, module.prometheus]
 }

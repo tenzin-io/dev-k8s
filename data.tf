@@ -10,8 +10,8 @@ data "vault_generic_secret" "xmatters" {
   path = "secrets/xmatters"
 }
 
-data "vault_generic_secret" "grafana" {
-  path = "secrets/grafana"
+data "vault_generic_secret" "grafana_dev" {
+  path = "secrets/grafana-dev"
 }
 
 data "vault_generic_secret" "tailscale" {
