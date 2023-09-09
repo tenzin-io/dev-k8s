@@ -51,7 +51,7 @@ module "prometheus" {
   kubernetes_cluster_name = "homelab-k8s-dev"
   prometheus_volume_size  = "30Gi"
   certificate_issuer_name = "lets-encrypt"
-  thanos_ingress_host     = "thanos-homelab-k8s-dev.tenzin.io"
+  thanos_ingress_host     = "homelab-k8s-dev-thanos.tenzin.io"
 }
 
 module "grafana" {
@@ -61,6 +61,6 @@ module "grafana" {
   github_org_name            = "tenzin-io"
   github_oauth_client_id     = data.vault_generic_secret.grafana_dev.data.github_oauth_client_id
   github_oauth_client_secret = data.vault_generic_secret.grafana_dev.data.github_oauth_client_secret
-  thanos_store_endpoints     = ["thanos-homelab-k8s-dev.tenzin.io:443"]
+  thanos_store_endpoints     = ["homelab-k8s-dev-thanos.tenzin.io:443"]
   depends_on                 = [module.nginx_ingress, module.cert_manager, module.prometheus]
 }
