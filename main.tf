@@ -64,3 +64,9 @@ module "grafana" {
   thanos_store_endpoints     = ["homelab-k8s-dev-thanos.tenzin.io:443"]
   depends_on                 = [module.nginx_ingress, module.cert_manager, module.prometheus]
 }
+
+module "artifactory" {
+  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-artifactory-jcr.git?ref=main"
+  certificate_issuer_name = "lets-encrypt"
+  jcr_ingress_host        = "containers-dev.tenzin.io"
+}
