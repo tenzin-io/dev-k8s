@@ -19,7 +19,7 @@ module "github_actions" {
   github_app_id              = data.vault_generic_secret.github_app.data.app_id
   github_app_installation_id = data.vault_generic_secret.github_app.data.installation_id
   github_app_private_key     = data.vault_generic_secret.github_app.data.private_key
-  github_runner_labels       = ["homelab", "dev"]
+  github_runner_labels       = ["homelab"]
   github_runner_image        = "containers.tenzin.io/docker/tenzin-io/actions-runner-images/ubuntu-latest:v0.0.7"
   depends_on                 = [module.cert_manager]
 }
@@ -52,21 +52,4 @@ module "prometheus" {
   prometheus_volume_size  = "30Gi"
   certificate_issuer_name = "lets-encrypt"
   thanos_ingress_host     = "homelab-k8s-dev-thanos.tenzin.io"
-}
-
-module "grafana" {
-  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-grafana.git?ref=v0.0.2"
-  grafana_ingress_host       = "grafana-dev.tenzin.io"
-  certificate_issuer_name    = "lets-encrypt"
-  github_org_name            = "tenzin-io"
-  github_oauth_client_id     = data.vault_generic_secret.grafana_dev.data.github_oauth_client_id
-  github_oauth_client_secret = data.vault_generic_secret.grafana_dev.data.github_oauth_client_secret
-  thanos_store_endpoints     = ["homelab-k8s-dev-thanos.tenzin.io:443"]
-  depends_on                 = [module.nginx_ingress, module.cert_manager, module.prometheus]
-}
-
-module "artifactory" {
-  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-artifactory-jcr.git?ref=main"
-  certificate_issuer_name = "lets-encrypt"
-  jcr_ingress_host        = "containers-dev.tenzin.io"
 }
