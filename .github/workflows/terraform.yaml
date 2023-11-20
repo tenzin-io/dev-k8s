@@ -51,7 +51,7 @@ jobs:
       - name: Setup kubernetes-admin.conf
         run: |-
           cat <<'eof' > kubernetes-admin.conf
-          ${{ steps.vault_secrets.outputs.KUBERNETES_ADMIN_CONF }}
+          ${{ steps.vault-secrets.outputs.KUBERNETES_ADMIN_CONF }}
           eof
  
       - name: Run Terraform Init
@@ -108,7 +108,7 @@ jobs:
       - name: Setup kubernetes-admin.conf
         run: |-
           cat <<'eof' > kubernetes-admin.conf
-          ${{ steps.vault_secrets.outputs.KUBERNETES_ADMIN_CONF }}
+          ${{ steps.vault-secrets.outputs.KUBERNETES_ADMIN_CONF }}
           eof
 
       - name: Run Terraform Init
