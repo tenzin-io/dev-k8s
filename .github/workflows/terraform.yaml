@@ -28,15 +28,25 @@ jobs:
           role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1
 
-      - uses: hashicorp/vault-action@v2
-        id: vault_secrets
+      - name: Get Vault token
+        id: vault-secrets
+        uses: hashicorp/vault-action@v2
         with:
           url: https://vault.tenzin.io
           role: ${{ vars.VAULT_ROLE_TO_ASSUME }}
           method: jwt
           exportToken: true
           secrets: |
+            secrets/data/tailscale/github-actions client_id | TS_OAUTH_CLIENT_ID ;
+            secrets/data/tailscale/github-actions client_secret | TS_OAUTH_CLIENT_SECRET ;
             secrets/data/kubeconfig/homelab-k8s-dev kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
+
+      - name: Tailscale connection
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ steps.vault-secrets.outputs.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ steps.vault-secrets.outputs.TS_OAUTH_CLIENT_SECRET }}
+          tags: tag:ci
 
       - name: Setup kubernetes-admin.conf
         run: |-
@@ -73,15 +83,25 @@ jobs:
           role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1
 
-      - uses: hashicorp/vault-action@v2
-        id: vault_secrets
+      - name: Get Vault token
+        id: vault-secrets
+        uses: hashicorp/vault-action@v2
         with:
           url: https://vault.tenzin.io
           role: ${{ vars.VAULT_ROLE_TO_ASSUME }}
           method: jwt
           exportToken: true
           secrets: |
+            secrets/data/tailscale/github-actions client_id | TS_OAUTH_CLIENT_ID ;
+            secrets/data/tailscale/github-actions client_secret | TS_OAUTH_CLIENT_SECRET ;
             secrets/data/kubeconfig/homelab-k8s-dev kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
+
+      - name: Tailscale connection
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ steps.vault-secrets.outputs.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ steps.vault-secrets.outputs.TS_OAUTH_CLIENT_SECRET }}
+          tags: tag:ci
 
       - name: Setup kubernetes-admin.conf
         run: |-
