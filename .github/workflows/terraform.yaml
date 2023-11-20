@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   validate-and-plan:
-    runs-on: [self-hosted, homelab]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -68,7 +68,7 @@ jobs:
 
   apply:
     needs: [validate-and-plan]
-    runs-on: [self-hosted, homelab]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
