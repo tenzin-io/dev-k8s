@@ -11,9 +11,6 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  HTTPS_PROXY: squid-1:3128
-
 jobs:
   validate-and-plan:
     runs-on: ubuntu-latest
@@ -68,6 +65,8 @@ jobs:
 
       - name: Run Terraform Plan
         run: terraform plan
+        env:
+          HTTPS_PROXY: squid-1:3128
 
   apply:
     needs: [validate-and-plan]
@@ -117,3 +116,5 @@ jobs:
 
       - name: Run Terraform Apply
         run: terraform apply -auto-approve
+        env:
+          HTTPS_PROXY: squid-1:3128
