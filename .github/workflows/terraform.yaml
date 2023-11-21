@@ -66,7 +66,7 @@ jobs:
       - name: Run Terraform Plan
         run: terraform plan
         env:
-          HTTP_PROXY: http://squid-1:3128
+          HTTPS_PROXY: http://squid-1:3128
 
   apply:
     needs: [validate-and-plan]
@@ -117,4 +117,4 @@ jobs:
       - name: Run Terraform Apply
         run: terraform apply -auto-approve
         env:
-          HTTP_PROXY: http://squid-1:3128
+          HTTPS_PROXY: http://squid-1:3128
