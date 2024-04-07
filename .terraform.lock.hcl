@@ -5,6 +5,7 @@ provider "registry.terraform.io/hashicorp/aws" {
   version = "5.16.1"
   hashes = [
     "h1:4xM59GFsk7M7VoFFMRsX6lSKuxCNFJRm5jUI9ZUqztM=",
+    "h1:yhE5YZvX+d17YZ8J9Gy3fd/jAtqImmSpthGyisUPgTY=",
     "zh:0d313783ae3abe06387b28b8c9f9b363f7b9cc3cecb7af879220f218a34d6463",
     "zh:35bdb7a69f418dc71e3aa7217bacc4849dea33889d338d76f0a2bcc691073843",
     "zh:38ec5e1220caccec76855084971a88a08cb2dc3ed33ace5399d8a1785982b935",
@@ -26,6 +27,7 @@ provider "registry.terraform.io/hashicorp/aws" {
 provider "registry.terraform.io/hashicorp/helm" {
   version = "2.11.0"
   hashes = [
+    "h1:V6dij/WCsJnkWySf0JfUbIVn3jL3Dsl6FydnIYWI2bo=",
     "h1:zxfRtgpWrVZwjkIBuI+7jc52+u1QBA/k7LQZiCiq3Z8=",
     "zh:013857c88f3e19a4b162344e21dc51891c4ac8b600da8391f7fb2b6d234961e1",
     "zh:044fffa233a93cdcf8384afbe9e1ab6c9d0b5b176cbae56ff465eb9611302975",
@@ -45,6 +47,7 @@ provider "registry.terraform.io/hashicorp/helm" {
 provider "registry.terraform.io/hashicorp/kubernetes" {
   version = "2.23.0"
   hashes = [
+    "h1:PTuAVVjCX41j7T2ffWcWZ1/zSY5N/ysHahvdIvw2IKM=",
     "h1:xyFc77aYkPoU4Xt1i5t0B1IaS8TbTtp9aCSuQKDayII=",
     "zh:10488a12525ed674359585f83e3ee5e74818b5c98e033798351678b21b2f7d89",
     "zh:1102ba5ca1a595f880e67102bbf999cc8b60203272a078a5b1e896d173f3f34b",
@@ -64,6 +67,7 @@ provider "registry.terraform.io/hashicorp/kubernetes" {
 provider "registry.terraform.io/hashicorp/template" {
   version = "2.2.0"
   hashes = [
+    "h1:12Bac8B6Aq2+18xe8iqp5iYytav2Bw+jG43z/VaK5zI=",
     "h1:94qn780bi1qjrbC3uQtjJh3Wkfwd5+tTtJHOb7KTg9w=",
     "zh:01702196f0a0492ec07917db7aaa595843d8f171dc195f4c988d2ffca2a06386",
     "zh:09aae3da826ba3d7df69efeb25d146a1de0d03e951d35019a0f80e4f58c89b53",
@@ -81,6 +85,7 @@ provider "registry.terraform.io/hashicorp/template" {
 provider "registry.terraform.io/hashicorp/vault" {
   version = "3.20.0"
   hashes = [
+    "h1:c5jPYdq1odBtF1F/a0SBuYJTf5OYw67M3RunSZnMEXg=",
     "h1:tAhOQy6jGSu4WTGWpMgUU+o6r6OSErEnfnjp7KhmHu0=",
     "zh:233b54a177ee0e1caec685e888686251b4f609378fa3431367ef1edf76aaee69",
     "zh:640a44674bf7a1f2177734a30fd435576cb8f6b33089e9203fd43747ecb9413b",
