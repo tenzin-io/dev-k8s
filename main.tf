@@ -8,7 +8,7 @@ terraform {
 }
 
 module "cert_manager" {
-  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-cert-manager.git?ref=v0.0.2"
+  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-cert-manager.git?ref=v0.0.3"
   cert_registration_email = "tenzin@tenzin.io"
   cloudflare_api_token    = data.vault_generic_secret.cloudflare.data.api_token
 }
@@ -30,4 +30,13 @@ module "nfs_subdir" {
   source     = "git::https://github.com/tenzin-io/terraform-tenzin-nfs-subdir.git?ref=v0.0.4"
   nfs_server = "localhost"
   nfs_path   = "/data"
+}
+
+module "jupyterhub" {
+  source                       = "git::https://github.com/tenzin-io/terraform-tenzin-jupyterhub.git?ref=v0.0.1"
+  jupyterhub_fqdn              = "jupyterhub.tenzin.io"
+  cert_issuer_name             = module.cert_manager.cert_issuer_name
+  github_oauth_client_id       = data.vault_generic_secret.jupyterhub.data.github_oauth_client_id
+  github_oauth_client_secret   = data.vault_generic_secret.jupyterhub.data.github_oauth_client_secret
+  allowed_github_organizations = ["tenzin-io", "tenzinlab"]
 }
