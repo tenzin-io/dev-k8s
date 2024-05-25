@@ -8,24 +8,25 @@ terraform {
 }
 
 module "calico" {
-  source = "git::https://github.com/tenzin-io/terraform-tenzin-calico.git?ref=v0.0.1"
+  source = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/calico?ref=main"
 }
 
 module "local_path_provisioner" {
-  source = "git::https://github.com/tenzin-io/terraform-tenzin-local-path-provisioner.git?ref=v0.0.1"
+  source     = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/local-path-provisioner?ref=main"
   depends_on = [module.calico]
 }
 
-#module "cert_manager" {
-#  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-cert-manager.git?ref=v0.0.3"
-#  cert_registration_email = "tenzin@tenzin.io"
-#  cloudflare_api_token    = data.vault_generic_secret.cloudflare.data.api_token
-#}
-#
-#module "metallb" {
-#  source        = "git::https://github.com/tenzin-io/terraform-tenzin-metallb.git?ref=v0.0.1"
-#  ip_pool_range = "192.168.7.12/32"
-#}
+module "cert_manager" {
+  source     = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/cert-manager?ref=main"
+  cloudflare_api_token    = var.cloudflare_api_token
+  enable_lets_encrypt_issuer = true
+}
+
+module "metallb" {
+  source     = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/metallb?ref=main"
+  ip_pool_range = "192.168.200.230/32"
+}
+
 #
 #module "nginx_ingress" {
 #  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-nginx-ingress-controller.git?ref=v0.0.3"
