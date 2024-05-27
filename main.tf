@@ -54,12 +54,22 @@ module "prometheus" {
 }
 
 module "grafana" {
-  depends_on                 = [module.cert_manager, module.local_path_provisioner, module.prometheus]
-  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/grafana?ref=main"
-  grafana_fqdn               = "grafana.tenzin.io"
-  cert_issuer_name           = module.cert_manager.cert_issuer_name
-  enable_github_oauth        = true
-  github_oauth_client_id     = var.grafana_github_oauth_client_id
-  github_oauth_client_secret = var.grafana_github_oauth_client_secret
+  depends_on                  = [module.cert_manager, module.local_path_provisioner, module.prometheus]
+  source                      = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/grafana?ref=main"
+  grafana_fqdn                = "grafana.tenzin.io"
+  cert_issuer_name            = module.cert_manager.cert_issuer_name
+  enable_github_oauth         = true
+  github_oauth_client_id      = var.grafana_github_oauth_client_id
+  github_oauth_client_secret  = var.grafana_github_oauth_client_secret
   allowed_github_organization = "tenzin-io"
+}
+
+module "actions_runner" {
+  source                     = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/actions-runner?ref=main"
+  runner_set_name            = "dev-k8s"
+  runner_image               = "ghcr.io/tenzin-io/actions-runner:v0.0.1"
+  github_organization_url    = "https://github.com/tenzin-io"
+  github_app_id              = var.actions_runner_github_app_id
+  github_app_installation_id = var.actions_runner_github_app_installation_id
+  github_app_private_key     = var.actions_runner_github_app_private_key
 }
