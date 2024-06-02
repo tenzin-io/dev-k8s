@@ -30,11 +30,10 @@ module "metallb" {
 }
 
 module "nginx_ingress" {
-  source                  = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/ingress-nginx?ref=main"
-  enable_tailscale_tunnel = true
-  tailscale_auth_key      = var.tailscale_auth_key
-  tailscale_hostname      = "dev-k8s-ingress-nginx"
-  depends_on              = [module.metallb, module.cert_manager]
+  source                   = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/ingress-nginx?ref=main"
+  enable_cloudflare_tunnel = true
+  cloudflare_tunnel_token  = var.cloudflare_tunnel_token
+  depends_on               = [module.metallb, module.cert_manager]
 }
 
 module "jupyterhub" {
