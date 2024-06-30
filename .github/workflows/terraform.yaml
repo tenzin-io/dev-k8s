@@ -16,16 +16,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
+          role-to-assume: arn:aws:iam::130900203380:role/tenzin-io.dev-k8s
           aws-region: us-east-1
 
       - name: Get Vault token
@@ -33,19 +33,19 @@ jobs:
         uses: hashicorp/vault-action@v2
         with:
           url: https://vault.tenzin.io
-          role: ${{ vars.VAULT_ROLE_TO_ASSUME }}
+          role: tenzin-io.dev-k8s
           method: jwt
           exportToken: true
           secrets: |
-            secrets/data/tailscale/github-actions client_id | TS_OAUTH_CLIENT_ID ;
-            secrets/data/tailscale/github-actions client_secret | TS_OAUTH_CLIENT_SECRET ;
+            secrets/data/github-actions/tailscale tailscale_oauth_client_id | TAILSCALE_OAUTH_CLIENT_ID ;
+            secrets/data/github-actions/tailscale tailscale_oauth_client_secret | TAILSCALE_OAUTH_CLIENT_SECRET ;
             secrets/data/kubeconfig/dev-k8s kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
 
       - name: Tailscale connection
         uses: tailscale/github-action@v2
         with:
-          oauth-client-id: ${{ steps.vault-secrets.outputs.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ steps.vault-secrets.outputs.TS_OAUTH_CLIENT_SECRET }}
+          oauth-client-id: ${{ steps.vault-secrets.outputs.TAILSCALE_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ steps.vault-secrets.outputs.TAILSCALE_OAUTH_CLIENT_SECRET }}
           tags: tag:ci
 
       - name: Setup kubernetes-admin.conf
@@ -66,23 +66,23 @@ jobs:
       - name: Run Terraform Plan
         run: terraform plan
         env:
-          HTTPS_PROXY: http://squid-1:3128
+          HTTPS_PROXY: http://raspberrypi:3128
 
   apply:
     needs: [validate-and-plan]
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
+          role-to-assume: arn:aws:iam::130900203380:role/tenzin-io.dev-k8s
           aws-region: us-east-1
 
       - name: Get Vault token
@@ -90,19 +90,19 @@ jobs:
         uses: hashicorp/vault-action@v2
         with:
           url: https://vault.tenzin.io
-          role: ${{ vars.VAULT_ROLE_TO_ASSUME }}
+          role: tenzin-io.dev-k8s
           method: jwt
           exportToken: true
           secrets: |
-            secrets/data/tailscale/github-actions client_id | TS_OAUTH_CLIENT_ID ;
-            secrets/data/tailscale/github-actions client_secret | TS_OAUTH_CLIENT_SECRET ;
+            secrets/data/github-actions/tailscale tailscale_oauth_client_id | TAILSCALE_OAUTH_CLIENT_ID ;
+            secrets/data/github-actions/tailscale tailscale_oauth_client_secret | TAILSCALE_OAUTH_CLIENT_SECRET ;
             secrets/data/kubeconfig/dev-k8s kubernetes_admin_conf | KUBERNETES_ADMIN_CONF ;
 
       - name: Tailscale connection
         uses: tailscale/github-action@v2
         with:
-          oauth-client-id: ${{ steps.vault-secrets.outputs.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ steps.vault-secrets.outputs.TS_OAUTH_CLIENT_SECRET }}
+          oauth-client-id: ${{ steps.vault-secrets.outputs.TAILSCALE_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ steps.vault-secrets.outputs.TAILSCALE_OAUTH_CLIENT_SECRET }}
           tags: tag:ci
 
       - name: Setup kubernetes-admin.conf
@@ -117,4 +117,4 @@ jobs:
       - name: Run Terraform Apply
         run: terraform apply -auto-approve
         env:
-          HTTPS_PROXY: http://squid-1:3128
+          HTTPS_PROXY: http://raspberrypi:3128
