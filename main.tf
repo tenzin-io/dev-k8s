@@ -111,3 +111,15 @@ module "actions_runner_org" {
   github_app_installation_id = data.vault_generic_secret.github_tenzin_org.data["github_app_installation_id"]
   github_app_private_key     = data.vault_generic_secret.github_tenzin_org.data["github_app_private_key"]
 }
+
+module "external_services" {
+  source = "git::https://github.com/tenzin-io/terraform-tenzin-homelab.git//kubernetes/external-services?ref=main"
+  external_services = {
+    "pypi-cache" = {
+      address = "tenzins-ubuntu.lan"
+      port    = "80"
+    }
+  }
+  external_domain_name = "tenzin.io"
+  certificate_issuer   = "lets-encrypt"
+}
